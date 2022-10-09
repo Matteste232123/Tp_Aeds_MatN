@@ -75,7 +75,7 @@ int retorna_num_palavra(Lista_lista *ll){
 
 void imprime_linha(Lista_lista *ll,Lista_de_Palavra *var){
 
-    printf("\tQUANTIDADE TOTAL DE PALAVRAS: ",ll->num_palavras);
+    printf("\tQUANTIDADE TOTAL DE PALAVRAS: %d",ll->num_palavras);
     imprime_palavra(var);
 
 
