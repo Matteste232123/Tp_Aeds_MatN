@@ -1,82 +1,89 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 #include "TAD_LISTA.h"
 
-void criar_nova_lista(Lista_lista *ll){
+void criar_nova_lista(Lista *ll){
 
     ll->primeiro = (Apontador) malloc(sizeof(celula_lista));
     ll->ultimo = ll->primeiro;
-    ll->primeiro->next = NULL;
     ll->num_palavras = 0;
+    ll->primeiro->next = NULL;
 
-}
+} //ok
 
-void contagem_palavras(Lista_lista *ll,FILE *fp){
+int lista_esta_vazia(Lista *ll){
 
-    char file_contents[1000];
+    return(ll->primeiro==ll->ultimo);
 
-    while(fscanf(fp, "%[^-\n ] ", file_contents) != EOF){
+} //ok
 
-        ll->num_palavras +=1;
+void insere_palavra(Lista *ll,Lista_de_Palavra *var){
 
-    }
-    
-}
+    ll->ultimo->next = (Apontador) malloc(sizeof(celula_lista));
+    ll->ultimo = ll->ultimo->next;
+    ll->ultimo->Tad_palavra = var;
+    ll->num_palavras +=1;
+    ll->ultimo->next = NULL;
 
-void remove_palavra(Lista_lista *ll,char *word,palavra *pp){
-    Apontador paux;
-    paux = ll->primeiro->next;
-    while(paux!=NULL){
-        if(!(strcmp(paux->T_lista.lp->ultimo->T_palavra.lista_caracteres,word))){
-            strcpy(paux->T_lista.lp->ultimo->T_palavra.lista_caracteres,NULL);
-            ll->num_palavras =- 1;
-        }
-    strcpy(pp->lista_caracteres,word);
-    paux = ll->primeiro;
-    ll->primeiro = ll->primeiro->next;
-    free(ll); 
-    }
-}
+} //ok
 
-void remove_palavra_final(Lista_lista *ll,palavra *pp){
-
-    Apontador paux;
-    paux = ll->primeiro->next;
-    while(paux!=NULL){
-        strcpy(pp->lista_caracteres,paux->T_lista.lp->ultimo->T_palavra.lista_caracteres);
-        strcpy(paux->T_lista.lp->ultimo->T_palavra.lista_caracteres,NULL);
-        ll->num_palavras =-1;
-    }
-    paux = ll->primeiro;
-    ll->primeiro = ll->primeiro->next;
-    free(ll);
-
-}
-
-int verificar_palavra(Lista_lista *ll,char *word){
-
-    Apontador paux;
-    paux = ll->primeiro->next;
-    while(paux!=NULL){
-        if(!(strcmp(paux->T_lista.lp->ultimo->T_palavra.lista_caracteres,word))){
-            return 0;
-        }else{
-            return 1;
-        }
-    }
-}
-
-int retorna_num_palavra(Lista_lista *ll){
+int retorna_num_palavra(Lista *ll){
 
     return ll->num_palavras;
+
+} //ok
+void remove_palavra(Lista *ll,char *word){
+
 }
 
+void remove_palavra_final(Lista *ll, Lista_de_Palavra *pp,palavra *word){
+    celula_lista *ptr;
+    if(ll->primeiro == ll->ultimo){
+        printf("\tLista vazia!\n");
+    }else{
+        pp = ll->primeiro->next->Tad_palavra;
+        ptr = ll->primeiro;
+        ll->primeiro = ll->primeiro->next;
+        retira_palavra(pp,word);
+        ll->num_palavras -= 1;
+        free(ptr);
+       
+    }
+} //ok
 
-void imprime_linha(Lista_lista *ll,Lista_de_Palavra *var){
 
-    printf("\tQUANTIDADE TOTAL DE PALAVRAS: %d",ll->num_palavras);
-    imprime_palavra(var);
+int verificar_palavra(Lista *ll,char *word){
 
+    Apontador paux;
+    //apontador pp;
+    paux = ll->primeiro->next;
+    //pp = var->primeiro->next;
+    while(paux!=NULL){
+        if(!(strcmp(word,paux->Tad_palavra->ultimo->T_palavra.lista_caracteres))){
+        
+            return 1;
+        }
+        //pp = pp->next;
+        //paux =paux->Tad_palavra->ultimo->next; // --> seria o ideal,volta apontador
+        paux = paux->next;
+    }
+    return 0;
+
+
+
+}
+
+void imprime_lista(Lista *ll,Lista_de_Palavra *var){
+
+    Apontador paux;
+    paux = ll->primeiro->next;
+    retorna_num_palavra(ll);
+    while(paux!=NULL){
+        imprime_caracteres(var);
+        //pp = pp->next;
+        paux = paux->next; // --> seria o ideal,volta apontador
+    }
 
 }
