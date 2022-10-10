@@ -5,16 +5,17 @@ struct palavra{
 
     int linha;
     char lista_caracteres[1000];
-    //FILE *arq;
+    //componentes de palavra,string e a linha onde está presente;
 
 }typedef palavra;
 
 typedef struct celula_palavra *apontador;
+//celula cabeça
 
 typedef struct celula_palavra{
 
     palavra T_palavra;
-    struct celula_palavra* next; 
+    struct celula_palavra* next; //aponta para a proxima celula
 
 }celula_palavra;
 
@@ -24,16 +25,19 @@ typedef struct Lista_de_Palavra{
 
     apontador primeiro; 
     apontador ultimo;
+    //componentes da lista_palavra
 
 }Lista_de_Palavra;
 
 void inicializar_palavra(Lista_de_Palavra *var);
 
+void retira_palavra(Lista_de_Palavra *var,palavra *word);
+
 int palavra_vazia(Lista_de_Palavra *var);
 
-void insere_caracteres(Lista_de_Palavra *var,FILE *fp);
+void insere_caracteres(Lista_de_Palavra *var,char *word,int line);
 
-char* retorna_caracteres(Lista_de_Palavra *var);
+const char* retorna_caracteres(Lista_de_Palavra *var);
 
 void imprime_caracteres(Lista_de_Palavra *var);
 
