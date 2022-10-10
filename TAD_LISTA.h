@@ -1,38 +1,35 @@
 #include "TAD_PALAVRA.h"
-struct lista{
-
-    Lista_de_Palavra *lp;
-
-}typedef lista;
-
 typedef struct celula_lista *Apontador;
 
 struct celula_lista{
 
-    lista T_lista;
+    Lista_de_Palavra *Tad_palavra;
+    //celula_palavra cel;
 
-    struct celula_lista* next;
+    Apontador next;
 
 }typedef celula_lista;
 
-struct Lista_lista{
+struct Lista{
 
     Apontador primeiro;
     Apontador ultimo;
     int num_palavras;
 
-}typedef Lista_lista;
+}typedef Lista;
 
-void criar_nova_lista(Lista_lista *ll);
+void criar_nova_lista(Lista *ll);
 
-void contagem_palavras(Lista_lista *ll,FILE *fp);
+int lista_esta_vazia(Lista *ll);
 
-void remove_palavra(Lista_lista *ll,char *word,palavra *pp);
+void insere_palavra(Lista *ll,Lista_de_Palavra *var);
 
-void remove_palavra_final(Lista_lista *ll,palavra *pp);
+void remove_palavra(Lista *ll,char *word);
 
-int verificar_palavra(Lista_lista *ll,char *word);
+void remove_palavra_final(Lista *ll,Lista_de_Palavra *pp,palavra *word);
 
-int retorna_num_palavra(Lista_lista *ll);
+int verificar_palavra(Lista *ll,char *word);
 
-void imprime_linha(Lista_lista *ll,Lista_de_Palavra *var);
+int retorna_num_palavra(Lista *ll);
+
+void imprime_lista(Lista *ll,Lista_de_Palavra *var);
