@@ -6,96 +6,77 @@
 
 
 void inicializar_palavra(Lista_de_Palavra *var){
-    var->primeiro = (apontador) malloc(sizeof(celula_palavra)); 
-    var->ultimo = var->primeiro;
-   // var->ultimo->T_palavra.arq = file;
-    var->ultimo->T_palavra.linha = 1;
-    var->primeiro->next = NULL;
+
+    var->primeiro = (apontador) malloc(sizeof(celula_palavra)); //cria o componente
+    var->ultimo = var->primeiro; 
+    var->ultimo->T_palavra.linha = 1; //inicializa o int linha
+    var->primeiro->next = NULL; //proxima celula
 
 }
 
 int palavra_vazia(Lista_de_Palavra *var){
 
     return (var->ultimo==var->primeiro);
+
 }
 
-void insere_caracteres(Lista_de_Palavra *var,FILE *in_file){
+void retira_palavra(Lista_de_Palavra *var,palavra *word){
 
-    var->ultimo->next = (apontador) malloc(sizeof(celula_palavra));
-    var->ultimo = var->ultimo->next;
-    char string_suporte[1000];
-    int line = 0,i = 0;
-    if (!in_file) {
-        perror("fopen");
-        exit(EXIT_FAILURE);
-    }
+    celula_palavra *pa;
+    *word = var->primeiro->next->T_palavra;
+    pa = var->primeiro;
+    var->primeiro = var->primeiro->next;
+    free(pa);
 
-    for(char c = fgetc(in_file);c!=EOF;c = getc(in_file)){
-        if(c == '\n'){
-            
-            line +=1;
+}
 
-        }
-    }
-
-    fseek(in_file,0,SEEK_SET);
-
-    char string[line][1000];
-    
-    while((fgets(string_suporte,1000,in_file))){
-
-        strcpy(string[i],string_suporte);
-
-        i ++;
+void insere_caracteres(Lista_de_Palavra *var,char *word,int line){
+      
+      var->ultimo->next = (apontador)malloc(sizeof(celula_palavra));
+      var->ultimo = var->ultimo->next;
+      strcpy(var->ultimo->T_palavra.lista_caracteres,word);
+      var->ultimo->T_palavra.linha = line;
+      var->ultimo->next = NULL;
 
     }
 
-    i = 0;
+const char* retorna_caracteres(Lista_de_Palavra *var){
+    char *string_retorno;
+    apontador paux;
+    paux = var->primeiro->next; //encera quando chegar no ultimo da lista,o que aponta para NULL
+    while(paux!=NULL){
+        string_retorno = (char*) malloc(sizeof(char));
+        strcpy(string_retorno,var->ultimo->T_palavra.lista_caracteres);
+        paux = paux->next; //avança na lista
 
-    while(i<line+1){
-
-        char* p = strtok(string[i]," -,.!");
-
-        while (p != NULL){
-
-            strcpy(var->ultimo->T_palavra.lista_caracteres,string[i]);
-
-            var->ultimo->T_palavra.linha = i+1;
-
-            printf ("%s %d\n",p,i+1);
-
-            p = strtok (NULL, " ,.-");
-
-            var->ultimo->next = NULL;
-            
-            }
-        i++;
     }
+    return string_retorno;
 
-
-    fclose(in_file);
-    exit(EXIT_SUCCESS);
-    }
-
-char* retorna_caracteres(Lista_de_Palavra *var){
+   
 
 }
 
 void imprime_caracteres(Lista_de_Palavra *var){
+
+
     apontador paux;
-    paux = var->primeiro->next;
-    while(paux != NULL){
+    paux = var->primeiro->next; //encera quando chegar no ultimo da lista,o que aponta para NULL
+    while(paux!=NULL){
+
         printf("\t%s\n",paux->T_palavra.lista_caracteres);
-        paux = paux->next;
+        paux = paux->next; //avança na lista
+
     }
+
 }
 
 void imprime_palavra(Lista_de_Palavra *var){
+
     apontador paux;
-    paux = var->primeiro->next;
+    paux = var->primeiro->next; //encera quando chegar no ultimo da lista,o que aponta para NULL
     while(paux != NULL){
         printf("\t%s %d\n",paux->T_palavra.lista_caracteres,paux->T_palavra.linha);
-        paux = paux->next;
+        paux = paux->next; //avança na lista
     }
 
 }
