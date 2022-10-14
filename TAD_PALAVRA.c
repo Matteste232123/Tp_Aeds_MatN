@@ -1,50 +1,28 @@
 #include "Tad_Palavra.h"
 
-void cria_palavra(TAD_PALAVRA *var){
+void cria_palavra(tad_palavra *var){
 
-    var->primeiro = (apontador) malloc(sizeof(Palavra_celula));
-    var->ultimo = var->primeiro;
-    var->primeiro->next = NULL;
-
-}
-
-void preenche_tad_palavra(TAD_PALAVRA *var,char *string,int line){
-
-    var->ultimo->next = (apontador) malloc(sizeof(Palavra_celula));
-    var->ultimo = var->ultimo->next;
-    strcpy(var->ultimo->PALAVRA->lista_caracteres,string);
-    var->ultimo->PALAVRA->linha = line;
-    var->ultimo->next = NULL;
+    var->linha = 0;
+    strcpy(var->lista_caracteres," ");
 
 }
 
-char* retorna_caracteres(TAD_PALAVRA *var){
-
-    return var->ultimo->PALAVRA->lista_caracteres;
-
-}
-
-void imprime_caracteres(TAD_PALAVRA *var){
-
-    apontador paux;
-    paux = var->primeiro->next;
-    while(paux != NULL){
-        printf("\t%s\n",paux->PALAVRA->lista_caracteres);
-        paux = paux->next;
+void preenche_tad_palavra(tad_palavra *var,char *string,int line){
+    strcpy(var->lista_caracteres,string);
+    var->linha = line;
     }
 
-    
+char* retorna_caracteres(tad_palavra *var){
+    return var->lista_caracteres;
 }
 
-void imprime_palavra(TAD_PALAVRA *var){
+void imprime_caracteres(tad_palavra *var){
+    printf("\t >>> %s \n",var->lista_caracteres);
+}
 
-    apontador paux;
-    paux = var->primeiro->next;
-    while(paux != NULL){
-        printf("\t%s\n",paux->PALAVRA->lista_caracteres);
-        printf("\t[%d]\n",paux->PALAVRA->linha);
-        paux = paux->next;
-    }
+void imprime_palavra(tad_palavra *var){
 
-   
+    printf("\t >>> %s \n",var->lista_caracteres);
+    printf("\t >>> %d\n",var->linha);
+
 }
