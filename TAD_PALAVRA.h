@@ -9,28 +9,13 @@ typedef struct {
 
 }tad_palavra;
 
-typedef struct Palavra_celula *apontador;
 
-struct Palavra_celula{
+void cria_palavra(tad_palavra *var);
 
-    tad_palavra *PALAVRA;
-    struct Palavra_celula* next;
+void preenche_tad_palavra(tad_palavra *var,char *string,int line);
 
-}typedef Palavra_celula;
+char* retorna_caracteres(tad_palavra *var);
 
-struct TAD_PALAVRA{
+void imprime_caracteres(tad_palavra *var);
 
-    apontador primeiro;
-    apontador ultimo;
-
-}typedef TAD_PALAVRA;
-
-void cria_palavra(TAD_PALAVRA *var);
-
-void preenche_tad_palavra(TAD_PALAVRA *var,char *string,int line);
-
-char* retorna_caracteres(TAD_PALAVRA *var);
-
-void imprime_caracteres(TAD_PALAVRA *var);
-
-void imprime_palavra(TAD_PALAVRA *var);
+void imprime_palavra(tad_palavra *var);
