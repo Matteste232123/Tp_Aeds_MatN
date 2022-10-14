@@ -1,48 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
+int main(void){
+    FILE *fp;
 
+    fp = fopen("entrada.txt","r");
 
-const char *text = "entrada.txt";
-
-int main(int argc, char *argv[])
-{
-    char str;
-    int line = 1; //a linha começa em 1
+    char c,string[1000];
     
-    FILE *in_file = fopen(text, "r");
-    if (!in_file) 
-    {
-        perror("fopen");
-        return 0;
+    int line = 0,count = 0;
+
+    while(fgets(string,1000,fp)){
+        count += 1;
     }
-
-    struct stat sb;
     
-    if (stat(text, &sb) == -1) 
-    {
-        perror("stat");
-        return 0;
-    }
+    fseek(fp,0,SEEK_SET);
 
+    char string_linha_completa[count][1000],*p;
+
+    while(fgets(string_linha_completa[line],1000,fp)){
+
+        p = strtok(string_linha_completa[line]," ,.-!");
+        while(p!=NULL){ 
+            printf("\t%s\n",p);
+            for(int i = 0;i<26;i++){
+
+                if(p[0]=='a'+i){
+                    printf("\t\nLetra Inicial> %c\n\n",'a'+i);
+                }
+            }
+            p = strtok(NULL," .;-!");
+
+            }line+=1;
+        }
+        //Usar o Tad_palavra e usar a função do Tad_lista
+        //parametros passados p e o line+1
     
-    char *file_contents = malloc(sb.st_size);
-    char *line_contents = malloc(sb.st_size);
-
-     for (char c = getc(in_file); c != EOF; c = getc(in_file)){
-         if (c == '\n'){
-            line++;
-         } 
-    }
-    fseek(in_file, 0, SEEK_SET);
-
-    while (fscanf(in_file, "%[^-\n ] ", file_contents) != EOF) {
-
-      printf("> %s\n", file_contents);
-      }
-    
-    fclose(in_file);
-    printf("\tNúmero total de linhas: %d\n",line);
+    fclose(fp);
     return 0;
 }
