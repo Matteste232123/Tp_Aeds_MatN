@@ -1,44 +1,36 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
-struct palavra{
+typedef struct {
 
-    int linha;
     char lista_caracteres[1000];
-    //componentes de palavra,string e a linha onde está presente;
+    int linha;
 
-}typedef palavra;
+}tad_palavra;
 
-typedef struct celula_palavra *apontador;
-//celula cabeça
+typedef struct Palavra_celula *apontador;
 
-typedef struct celula_palavra{
+struct Palavra_celula{
 
-    palavra T_palavra;
-    struct celula_palavra* next; //aponta para a proxima celula
+    tad_palavra *PALAVRA;
+    struct Palavra_celula* next;
 
-}celula_palavra;
+}typedef Palavra_celula;
 
-typedef struct Lista_de_Palavra{
-    
-    //endereços para os membros da lista encadeada;
+struct TAD_PALAVRA{
 
-    apontador primeiro; 
+    apontador primeiro;
     apontador ultimo;
-    //componentes da lista_palavra
 
-}Lista_de_Palavra;
+}typedef TAD_PALAVRA;
 
-void inicializar_palavra(Lista_de_Palavra *var);
+void cria_palavra(TAD_PALAVRA *var);
 
-void retira_palavra(Lista_de_Palavra *var,palavra *word);
+void preenche_tad_palavra(TAD_PALAVRA *var,char *string,int line);
 
-int palavra_vazia(Lista_de_Palavra *var);
+char* retorna_caracteres(TAD_PALAVRA *var);
 
-void insere_caracteres(Lista_de_Palavra *var,char *word,int line);
+void imprime_caracteres(TAD_PALAVRA *var);
 
-const char* retorna_caracteres(Lista_de_Palavra *var);
-
-void imprime_caracteres(Lista_de_Palavra *var);
-
-void imprime_palavra(Lista_de_Palavra *var);
+void imprime_palavra(TAD_PALAVRA *var);
