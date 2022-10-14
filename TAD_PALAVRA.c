@@ -1,82 +1,50 @@
-#include "TAD_PALAVRA.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
+#include "Tad_Palavra.h"
 
+void cria_palavra(TAD_PALAVRA *var){
 
-void inicializar_palavra(Lista_de_Palavra *var){
-
-    var->primeiro = (apontador) malloc(sizeof(celula_palavra)); //cria o componente
-    var->ultimo = var->primeiro; 
-    var->ultimo->T_palavra.linha = 1; //inicializa o int linha
-    var->primeiro->next = NULL; //proxima celula
+    var->primeiro = (apontador) malloc(sizeof(Palavra_celula));
+    var->ultimo = var->primeiro;
+    var->primeiro->next = NULL;
 
 }
 
-int palavra_vazia(Lista_de_Palavra *var){
+void preenche_tad_palavra(TAD_PALAVRA *var,char *string,int line){
 
-    return (var->ultimo==var->primeiro);
-
-}
-
-void retira_palavra(Lista_de_Palavra *var,palavra *word){
-
-    celula_palavra *pa;
-    *word = var->primeiro->next->T_palavra;
-    pa = var->primeiro;
-    var->primeiro = var->primeiro->next;
-    free(pa);
+    var->ultimo->next = (apontador) malloc(sizeof(Palavra_celula));
+    var->ultimo = var->ultimo->next;
+    strcpy(var->ultimo->PALAVRA->lista_caracteres,string);
+    var->ultimo->PALAVRA->linha = line;
+    var->ultimo->next = NULL;
 
 }
 
-void insere_caracteres(Lista_de_Palavra *var,char *word,int line){
-      
-      var->ultimo->next = (apontador)malloc(sizeof(celula_palavra));
-      var->ultimo = var->ultimo->next;
-      strcpy(var->ultimo->T_palavra.lista_caracteres,word);
-      var->ultimo->T_palavra.linha = line;
-      var->ultimo->next = NULL;
+char* retorna_caracteres(TAD_PALAVRA *var){
 
-    }
+    return var->ultimo->PALAVRA->lista_caracteres;
 
-const char* retorna_caracteres(Lista_de_Palavra *var){
-    char *string_retorno;
+}
+
+void imprime_caracteres(TAD_PALAVRA *var){
+
     apontador paux;
-    paux = var->primeiro->next; //encera quando chegar no ultimo da lista,o que aponta para NULL
-    while(paux!=NULL){
-        string_retorno = (char*) malloc(sizeof(char));
-        strcpy(string_retorno,var->ultimo->T_palavra.lista_caracteres);
-        paux = paux->next; //avança na lista
-
+    paux = var->primeiro->next;
+    while(paux != NULL){
+        printf("\t%s\n",paux->PALAVRA->lista_caracteres);
+        paux = paux->next;
     }
-    return string_retorno;
+
+    
+}
+
+void imprime_palavra(TAD_PALAVRA *var){
+
+    apontador paux;
+    paux = var->primeiro->next;
+    while(paux != NULL){
+        printf("\t%s\n",paux->PALAVRA->lista_caracteres);
+        printf("\t[%d]\n",paux->PALAVRA->linha);
+        paux = paux->next;
+    }
 
    
-
-}
-
-void imprime_caracteres(Lista_de_Palavra *var){
-
-
-    apontador paux;
-    paux = var->primeiro->next; //encera quando chegar no ultimo da lista,o que aponta para NULL
-    while(paux!=NULL){
-
-        printf("\t%s\n",paux->T_palavra.lista_caracteres);
-        paux = paux->next; //avança na lista
-
-    }
-
-}
-
-void imprime_palavra(Lista_de_Palavra *var){
-
-    apontador paux;
-    paux = var->primeiro->next; //encera quando chegar no ultimo da lista,o que aponta para NULL
-    while(paux != NULL){
-        printf("\t%s %d\n",paux->T_palavra.lista_caracteres,paux->T_palavra.linha);
-        paux = paux->next; //avança na lista
-    }
-
 }
