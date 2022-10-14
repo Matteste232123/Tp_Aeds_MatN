@@ -1,35 +1,28 @@
-#include "TAD_PALAVRA.h"
-typedef struct celula_lista *Apontador;
+#include "Tad_Palavra.h"
 
-struct celula_lista{
+typedef struct Celula_Lista_Palavras* Apontador_Lista_Palavras;
 
-    Lista_de_Palavra *Tad_palavra;
-    //celula_palavra cel;
+typedef struct Celula_Lista_Palavras{
+    tad_palavra *PALAVRA_LISTAPALAVRAS;
+    Apontador_Lista_Palavras ptrPROX_LISTAPALAVRAS;
+}TAD_CELULA_LISTA_PALAVRAS;
 
-    Apontador next;
+typedef struct{
+    Apontador_Lista_Palavras ptrPRIMEIRO_LISTAPALAVRAS, ptrULTIMO_LISTAPALAVRAS;
 
-}typedef celula_lista;
+}TAD_LISTA_PALAVRAS;
 
-struct Lista{
 
-    Apontador primeiro;
-    Apontador ultimo;
-    int num_palavras;
+void Cria_Nova_LISTAPALAVRAS(TAD_LISTA_PALAVRAS *lista_palavras);
+int Confere_se_esta_Vazia_LISTAPALAVRAS(TAD_LISTA_PALAVRAS *lista_palavras);
 
-}typedef Lista;
+void Insere_Nova_Palavra_no_Final_LISTAPALAVRAS(TAD_LISTA_PALAVRAS *lista_palavras, char *word_listapalavras, int line_listapalavras);
 
-void criar_nova_lista(Lista *ll);
+void Remove_a_Palavra_dada_a_Palavra_LISTAPALAVRAS(TAD_LISTA_PALAVRAS *lista_palavras, char *word_listapalavras);
+void Remove_a_Palavra_do_Final_LISTAPALAVRAS(TAD_LISTA_PALAVRAS *lista_palavras,tad_palavra *var);
 
-int lista_esta_vazia(Lista *ll);
+void Verifica_se_a_Palavra_esta_na_lista_LISTAPALAVRAS(TAD_LISTA_PALAVRAS *lista_palavras, char *word_listapalavras);
 
-void insere_palavra(Lista *ll,Lista_de_Palavra *var);
+int Retorna_numero_de_Palavras_ListadePalavras(TAD_LISTA_PALAVRAS *lista_palavras);
 
-void remove_palavra(Lista *ll,char *word);
-
-void remove_palavra_final(Lista *ll,Lista_de_Palavra *pp,palavra *word);
-
-int verificar_palavra(Lista *ll,char *word);
-
-int retorna_num_palavra(Lista *ll);
-
-void imprime_lista(Lista *ll,Lista_de_Palavra *var);
+void Imprime_ListadePalavras(TAD_LISTA_PALAVRAS *lista_palavras);
